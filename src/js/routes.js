@@ -4,7 +4,7 @@ import AboutPage from '../pages/about.f7.html';
 import FormPage from '../pages/form.f7.html';
 import DetailPage from '../pages/detail.f7.html';
 import ProductPage from '../pages/product.f7.html';
-import SettingsPage from '../pages/settings.f7.html';
+import HistoryPage from '../pages/history.f7.html';
 import PhotoPage from '../pages/photo.f7.html';
 
 import DynamicRoutePage from '../pages/dynamic-route.f7.html';
@@ -47,8 +47,8 @@ var routes = [
     component: ProductPage,
   },
   {
-    path: '/settings/',
-    component: SettingsPage,
+    path: '/history/',
+    component: HistoryPage,
   },
 
   {

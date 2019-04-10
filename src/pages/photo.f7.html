@@ -6,27 +6,72 @@
             </div>
         </div>
         <div class="page-content">
-            <div id="photo-icon">photo icon</div>
-            <div id="photo-detail">visual recognition result</div>
-            <div id="photo-point">today photo point</div>
-            <div id="photo-btn">accept btn</div>
+            <div class="block">
+                <div class="row">
+                    <img id="food-image" src="" style="width:100%">
+                </div>
+                <br />
+                <div class="row">
+                    <input class="button button-big button-fill" type='file' id='_file' accept="image/*;capture=camera">
+                </div>
+            </div>
+            <div class="block">
+                <div class="list">
+                    <ul id="point-list">
+
+                    </ul>
+                </div>
+            </div>
+            <div class="block">
+                <div class="row">
+                    <div class="btn-submit" />
+                </div>
+            </div>
         </div>
     </div>
 </template>
 <script>
+    import $$ from 'dom7';
+    import Service from '../js/service'
+
+    console.log('Photo init');
+
     export default {
         methods: {},
         on: {
             pageInit: function () {
-                // var chart = c3.generate({
-                //   bindto: '#chart',
-                //   data: {
-                //     columns: [
-                //       ['data1', 30, 200, 100, 400, 150, 250],
-                //       ['data2', 50, 20, 10, 40, 15, 25]
-                //     ]
-                //   }
-                // });
+                $$('#food-image').attr('src', '');
+                $$('#_file').on('change', function () {
+                    console.log(this);
+                    $$('#point-list').html(
+                        ' '
+                    );
+                    if (this.files && this.files[0]) {
+                        var reader = new FileReader();
+                        var form = new FormData();
+                        form.append("image_file", this.files[0]);
+                        Service.getPhotoClassify(form, function (data) {
+                            console.log(data);
+                            data = JSON.parse(data);
+                            $$('#point-list').html(
+                                `<li>
+                                    <div class="item-content">
+                                        <div class="item-inner">
+                                            <div class="item-title">${data.results.food}</div>
+                                            <div class="item-after"><span class="badge">${data.results.point} Point</span></div>
+                                        </div>
+                                    </div>
+                                </li>`
+                            );
+                        });
+                        reader.onload = function (e) {
+                            $$('#food-image').attr('src', e.target.result);
+
+                        }
+                        reader.readAsDataURL(this.files[0]);
+                    }
+                })
+
             },
         },
     };
