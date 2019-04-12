@@ -14,6 +14,12 @@ export default {
       cb(data);
     });
   },
+  getHistory(cb) {
+    Framework7.request.get(`${endpoint}/api/v1/point/${userid}/${(mm > 9 ? '' : '0') + mm}`, data => {
+      console.log(data);
+      cb(data);
+    });
+  },
   getPhotoClassify(form, cb) {
     const params = {
       url: `${endpoint}/api/v1/visual/classify`,

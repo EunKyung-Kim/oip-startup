@@ -9,9 +9,38 @@
       <h1>Customer Total Point</h1>
       <h1>Customer Grade</h1>
       <h1>Customer history</h1>
+      <div id="history"></div>
     </div>
   </div>
 </template>
 <script>
-  export default {};
+  import $$ from 'dom7';
+  import Service from '../js/service';
+
+  export default {
+    methods: {},
+    on: {
+      pageInit: function () {
+
+        $$('#view-history').on('tab:show', function () {
+          console.log('reinit history')
+          Service.getHistory(function (data) {
+            console.log(data);
+            data = JSON.parse(data);
+            $$('#history').html(``);
+
+            data.map((row) => {
+              $$('#history').append(`${row.doc.date}일 - ${row.doc.total}point<br><br>`);
+            });
+
+          });
+        });
+        Service.getHistory(function (data) {
+          console.log(data);
+          data = JSON.parse(data);
+          $$('#history').html(``);
+        });
+      },
+    },
+  };
 </script>
