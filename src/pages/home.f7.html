@@ -42,14 +42,16 @@
         <div class="row">
           <div class="block-title block-title-medium">오늘의 운동지수</div>
           <div class="col">
-            <div class="elevation-demo elevation-6 elevation-hover-24 elevation-pressed-12 elevation-transition" style="height: 100px;
+            <div id="weather-dialog"
+              class="elevation-demo elevation-6 elevation-hover-24 elevation-pressed-12 elevation-transition" style="height: 100px;
             margin: 10px 10px;
             background: green;
-            font-size: 18px;
+            font-size: 30px;
+            font-weight: bold;
             text-align: center;
             line-height: 100px;">
-              좋음</div>
-            <div></div>
+              <i class="icon material-icons if-md" style="font-size:30px;">wb_sunny</i> 좋음
+            </div>
           </div>
         </div>
       </div>
@@ -66,8 +68,12 @@
     data: function () {
       return {
         text: [
-          "완벽합니다. 매일 이렇게 부탁드립니다.",
-          "조금만 노력해주세요"
+          "아무것도 안하고 계시네요..",
+          "많이 더하셔야해요",
+          "이제 시작입니다.",
+          "조금만 더 하시면되요",
+          "이제 거의다 왔어요",
+          "완벽합니다!"
         ],
         band: ''
       }
@@ -77,14 +83,48 @@
     },
     on: {
       pageInit: function () {
+
         console.log('home init');
-        HomeService.bandCreate(0, this.$app);
-        Service.getBandData((data) => {
-          this.band = data;
-          console.log(this.band);
-          HomeService.bandUpdate(1, this.text[1]);
+        const text = this.text;
+        $$('#view-home').on('tab:show', function () {
+          console.log('reinit home')
+          Service.getPoint((data) => {
+            this.band = data;
+
+            console.log((data.total / 6).parseInt);
+            HomeService.bandUpdate(data.total, text[parseInt(data.total / 2)]);
+          });
         });
+
+        HomeService.bandCreate(0, this.$app);
+
+        Service.getPoint((data) => {
+          this.band = data;
+
+          console.log((data.total / 6).parseInt);
+          HomeService.bandUpdate(data.total, text[parseInt(data.total / 2)]);
+        });
+
         $$('.toolbar')[0].hidden = false;
+
+        Service.getWeather((data) => {
+          console.log(data);
+          if (data[0].wth_activity_index === 'bad') {
+            $$('#weather-dialog').css({
+              background: 'red',
+              color: '#ffffff'
+            });
+            $$('#weather-dialog').html(
+              `<i class="icon material-icons if-md" style="font-size:30px;">wb_cloudy</i> 나쁨`);
+          } else {
+            $$('#weather-dialog').css({
+              background: 'green',
+              color: '#ffffff'
+            });
+            $$('#weather-dialog').html(
+              `<i class="icon material-icons if-md" style="font-size:30px;">wb_sunny</i> 좋음`);
+          }
+        });
 
         this.$$('#detail-btn').on('click', function () {
           console.log('btn-click');
@@ -94,7 +134,49 @@
         this.$$('#photo-btn').on('click', function () {
           $$('#tab-photo')[0].click();
         })
-      }
-    }
+      },
+      pageMounted(event, pageData) {
+        console.log('pageMounted')
+      },
+      pageReinit(event, pageData) {
+        console.log('pageReinit')
+      },
+      pageBeforeIn(event, pageData) {
+        console.log('pageBeforeIn')
+      },
+      pageAfterIn(event, pageData) {
+        console.log('pageAfterIn')
+      },
+      pageBeforeOut(event, pageData) {
+        console.log('pageBeforeOut')
+      },
+      pageAfterOut(event, pageData) {
+        console.log('pageAfterOut')
+      },
+    },
+    beforeCreate() {
+      console.log('beforeCreate account')
+    },
+    created() {
+      console.log('beforeDestroy account')
+    },
+    beforeMount() {
+      console.log('beforeMount account')
+    },
+    mounted() {
+      console.log('mounted account')
+    },
+    beforeUpdate() {
+      console.log('beforeUpdate account')
+    },
+    updated() {
+      console.log('updated account')
+    },
+    beforeDestroy() {
+      console.log('beforeDestroy account')
+    },
+    destroyed() {
+      console.log('destroyed account')
+    },
   }
 </script>

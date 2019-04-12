@@ -12,7 +12,12 @@
                 </div>
                 <br />
                 <div class="row">
-                    <input class="button button-big button-fill" type='file' id='_file' accept="image/*;capture=camera">
+                    <!-- <input class="button button-big button-fill" type="file" id="_file" accept="image/*;capture=camera">
+                    <input type="file" id="_file2"> -->
+                    <div class="filebox">
+                        <label for="_file">음식사진 업로드</label>
+                        <input type="file" id="_file">
+                    </div>
                 </div>
             </div>
             <div class="block">
@@ -21,7 +26,13 @@
 
                     </ul>
                 </div>
+                <div class="submit">
+                    <p class="row">
+                        <button class="col button button-fill color-blue" id="submit-btn">포인트 적립하기</button>
+                    </p>
+                </div>
             </div>
+
             <div class="block">
                 <div class="row">
                     <div class="btn-submit" />
@@ -30,6 +41,47 @@
         </div>
     </div>
 </template>
+<style>
+    .filebox label {
+        width: 94%;
+        display: inline-block;
+        padding: .5em .75em;
+        color: #fff;
+        font-size: inherit;
+        text-align: center;
+        line-height: normal;
+        vertical-align: middle;
+        background-color: #5cb85c;
+        cursor: pointer;
+        border: 1px solid #4cae4c;
+        border-radius: .25em;
+        -webkit-transition: background-color 0.2s;
+        transition: background-color 0.2s;
+    }
+
+    .filebox label:hover {
+        background-color: #6ed36e;
+    }
+
+    .filebox label:active {
+        background-color: #367c36;
+    }
+
+    .filebox input[type="file"] {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        border: 0;
+    }
+
+    .filebox {
+        width: 100%;
+    }
+</style>
 <script>
     import $$ from 'dom7';
     import Service from '../js/service'
@@ -37,12 +89,23 @@
     console.log('Photo init');
 
     export default {
+        data: function () {
+            food: {}
+        },
         methods: {},
         on: {
             pageInit: function () {
+                $$('#view-photo').on('tab:show', function () {
+                    $$('#food-image').attr('src', '');
+                    $$('#submit-btn').hide();
+                    $$('#point-list').html('');
+                });
                 $$('#food-image').attr('src', '');
+                $$('#submit-btn').hide();
+                var food = this.food;
                 $$('#_file').on('change', function () {
                     console.log(this);
+
                     $$('#point-list').html(
                         ' '
                     );
@@ -53,16 +116,18 @@
                         Service.getPhotoClassify(form, function (data) {
                             console.log(data);
                             data = JSON.parse(data);
+                            food = data;
                             $$('#point-list').html(
                                 `<li>
                                     <div class="item-content">
                                         <div class="item-inner">
-                                            <div class="item-title">${data.results.food}</div>
+                                            <div class="item-title">${data.results.foods}</div>
                                             <div class="item-after"><span class="badge">${data.results.point} Point</span></div>
                                         </div>
                                     </div>
                                 </li>`
                             );
+                            $$('#submit-btn').show();
                         });
                         reader.onload = function (e) {
                             $$('#food-image').attr('src', e.target.result);
@@ -70,6 +135,13 @@
                         }
                         reader.readAsDataURL(this.files[0]);
                     }
+                })
+
+                $$('#submit-btn').on('click', function () {
+                    console.log(food);
+                    Service.addFoodPoint(food, function (data) {
+                        $$('#tab-home')[0].click();
+                    });
                 })
 
             },

@@ -18,10 +18,18 @@ export default {
     });
   },
   bandUpdate(value, text) {
-    this.pointGauge.update({
-      value: value,
-      valueText: 12 + 'point',
-      labelText: text,
-    });
+    if (value > 0) {
+      this.pointGauge.update({
+        value: value / 12,
+        valueText: value + 'point',
+        labelText: text,
+      });
+    } else {
+      this.pointGauge.update({
+        value: 0,
+        valueText: 0 + 'point',
+        labelText: '아무 것도 안하시네요',
+      });
+    }
   },
 };
