@@ -24,13 +24,6 @@
           <div class="gauge point-gauge"></div>
         </div>
         <br>
-        <!-- <div class="row">
-          <div class="col text-align-center">
-            <div class="gauge gauge-init" data-type="semicircle" data-value="0.77" data-value-text="8pt"
-              data-border-color="#ff9800" data-label-text="8pt" data-label-text-color="#ff9800"
-              data-label-font-weight="800" data-label-font-size="12" data-border-width="10"></div>
-          </div>
-        </div> -->
       </div>
 
       <div class="block">
@@ -41,29 +34,57 @@
       <div class="block">
         <div class="row">
           <div class="block-title block-title-medium">오늘의 운동지수</div>
-          <div class="col">
+        </div>
+
+        <a class="link popup-open" href="#" data-popup=".popup-about" style="width:100%">
+          <div class="row" style="width:100%">
             <div id="weather-dialog"
-              class="elevation-demo elevation-6 elevation-hover-24 elevation-pressed-12 elevation-transition" style="height: 100px;
-            margin: 10px 10px;
-            background: green;
-            font-size: 30px;
-            font-weight: bold;
-            text-align: center;
-            line-height: 100px;">
+              class=" link popup-openelevation-demo elevation-6 elevation-hover-24 elevation-pressed-12 elevation-transition"
+              style="height: 100px; width: 100%;
+              margin: 10px 10px;
+              background: green;
+              font-size: 30px;
+              font-weight: bold;
+              text-align: center;
+              line-height: 100px;
+              color: #ffffff">
+
               <i class="icon material-icons if-md" style="font-size:30px;">wb_sunny</i> 좋음
+
             </div>
           </div>
-        </div>
-      </div>
+        </a>
 
+      </div>
+    </div>
+    <div class="popup popup-about">
+      <div class="block">
+        <p><a class="link popup-close" href="#">Close popup</a></p>
+        <p>날씨</p>
+        <div id="weather-detail"></div>
+      </div>
     </div>
   </div>
+
+
 </template>
 <script>
   import $$ from 'dom7';
   import Service from '../js/service';
   import HomeService from '../js/home';
 
+  const init = (app, data, text) => {
+    if (app) app.dialog.progress();
+    Service.getPoint((data) => {
+
+      console.log((data.total / 6).parseInt);
+      HomeService.bandUpdate(data.total, text[parseInt(data.total / 2)]);
+      if (app) {
+        app.dialog.close();
+      }
+    });
+
+  }
   export default {
     data: function () {
       return {
@@ -86,44 +107,42 @@
 
         console.log('home init');
         const text = this.text;
+        const app = this.$app;
+        const data = this.data
         $$('#view-home').on('tab:show', function () {
           console.log('reinit home')
-          Service.getPoint((data) => {
-            this.band = data;
-
-            console.log((data.total / 6).parseInt);
-            HomeService.bandUpdate(data.total, text[parseInt(data.total / 2)]);
-          });
+          init(app, data, text);
         });
 
-        HomeService.bandCreate(0, this.$app);
-
-        Service.getPoint((data) => {
-          this.band = data;
-
-          console.log((data.total / 6).parseInt);
-          HomeService.bandUpdate(data.total, text[parseInt(data.total / 2)]);
-        });
+        HomeService.bandCreate(0, app);
+        init(app, data, text);
 
         $$('.toolbar')[0].hidden = false;
 
         Service.getWeather((data) => {
           console.log(data);
-          if (data[0].wth_activity_index === 'bad') {
-            $$('#weather-dialog').css({
-              background: 'red',
-              color: '#ffffff'
-            });
-            $$('#weather-dialog').html(
-              `<i class="icon material-icons if-md" style="font-size:30px;">wb_cloudy</i> 나쁨`);
-          } else {
-            $$('#weather-dialog').css({
-              background: 'green',
-              color: '#ffffff'
-            });
-            $$('#weather-dialog').html(
-              `<i class="icon material-icons if-md" style="font-size:30px;">wb_sunny</i> 좋음`);
+          if (data.ERROR) {
+            app.dialog.close();
           }
+          if (data.length > 0) {
+            $$('#weather-detail').html(`${JSON.stringify(data)}`)
+            if (data[0].wth_activity_index === 'bad') {
+              $$('#weather-dialog').css({
+                background: 'red',
+                color: '#ffffff'
+              });
+              $$('#weather-dialog').html(
+                `<i class="icon material-icons if-md" style="font-size:30px;">wb_cloudy</i> 나쁨`);
+            } else {
+              $$('#weather-dialog').css({
+                background: 'green',
+                color: '#ffffff'
+              });
+              $$('#weather-dialog').html(
+                `<i class="icon material-icons if-md" style="font-size:30px;">wb_sunny</i> 좋음`);
+            }
+          }
+          app.dialog.close();
         });
 
         this.$$('#detail-btn').on('click', function () {
@@ -135,48 +154,8 @@
           $$('#tab-photo')[0].click();
         })
       },
-      pageMounted(event, pageData) {
-        console.log('pageMounted')
-      },
-      pageReinit(event, pageData) {
-        console.log('pageReinit')
-      },
-      pageBeforeIn(event, pageData) {
-        console.log('pageBeforeIn')
-      },
-      pageAfterIn(event, pageData) {
-        console.log('pageAfterIn')
-      },
-      pageBeforeOut(event, pageData) {
-        console.log('pageBeforeOut')
-      },
-      pageAfterOut(event, pageData) {
-        console.log('pageAfterOut')
-      },
+
     },
-    beforeCreate() {
-      console.log('beforeCreate account')
-    },
-    created() {
-      console.log('beforeDestroy account')
-    },
-    beforeMount() {
-      console.log('beforeMount account')
-    },
-    mounted() {
-      console.log('mounted account')
-    },
-    beforeUpdate() {
-      console.log('beforeUpdate account')
-    },
-    updated() {
-      console.log('updated account')
-    },
-    beforeDestroy() {
-      console.log('beforeDestroy account')
-    },
-    destroyed() {
-      console.log('destroyed account')
-    },
+
   }
 </script>

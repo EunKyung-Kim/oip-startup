@@ -95,6 +95,7 @@
         methods: {},
         on: {
             pageInit: function () {
+                const app = this.$app;
                 $$('#view-photo').on('tab:show', function () {
                     $$('#food-image').attr('src', '');
                     $$('#submit-btn').hide();
@@ -113,6 +114,7 @@
                         var reader = new FileReader();
                         var form = new FormData();
                         form.append("image_file", this.files[0]);
+                        app.dialog.progress();
                         Service.getPhotoClassify(form, function (data) {
                             console.log(data);
                             data = JSON.parse(data);
@@ -128,6 +130,7 @@
                                 </li>`
                             );
                             $$('#submit-btn').show();
+                            app.dialog.close();
                         });
                         reader.onload = function (e) {
                             $$('#food-image').attr('src', e.target.result);

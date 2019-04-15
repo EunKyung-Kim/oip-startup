@@ -8,8 +8,13 @@
     <div class="page-content">
       <h1>Customer Total Point</h1>
       <h1>Customer Grade</h1>
-      <h1>Customer history</h1>
+      <div class="block-title">이번달 포인트 내역 : <span id="month-total"></span></div>
       <div id="history"></div>
+      <div class="list">
+        <ul id="history-list">
+
+        </ul>
+      </div>
     </div>
   </div>
 </template>
@@ -17,29 +22,49 @@
   import $$ from 'dom7';
   import Service from '../js/service';
 
+  const init = (app) => {
+    if (app) {
+      app.dialog.progress();
+    }
+
+    $$('#history-list').html('');
+
+    Service.getHistory(function (data) {
+      console.log(data);
+      data = JSON.parse(data);
+      $$('#history').html(``);
+
+      let total = 0;;
+      for (let i = 0; i < data.length; i++) {
+        total += data[i].doc.total;
+      }
+      $$('#month-total').html(`${total} Point`);
+      data.map((row) => {
+        $$('#history-list').append(` <li>
+            <div class="item-content">
+              <div class="item-inner">
+                <div class="item-title">${row.doc.date}</div>
+                <div class="item-after"><span class="badge color-orange">${row.doc.total} point</span></div>
+              </div>
+            </div>
+          </li>`);
+      });
+      if (app) app.dialog.close();
+    });
+
+
+
+  }
   export default {
     methods: {},
     on: {
       pageInit: function () {
-
+        const app = this.$app;
         $$('#view-history').on('tab:show', function () {
           console.log('reinit history')
-          Service.getHistory(function (data) {
-            console.log(data);
-            data = JSON.parse(data);
-            $$('#history').html(``);
-
-            data.map((row) => {
-              $$('#history').append(`${row.doc.date}일 - ${row.doc.total}point<br><br>`);
-            });
-
-          });
+          init(app);
         });
-        Service.getHistory(function (data) {
-          console.log(data);
-          data = JSON.parse(data);
-          $$('#history').html(``);
-        });
+        init();
       },
     },
   };

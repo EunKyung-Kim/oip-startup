@@ -7,46 +7,78 @@
       </div>
     </div>
     <div class="page-content">
-
-      <h1>today's step point</h1>
-      <div id="step"></div>
-      <h1>today's hrm point</h1>
-      <div id="hrm"></div>
-      <h1>today's food point</h1>
-      <div id="food"></div>
-      <h1>today's age point</h1>
+      <br>
+      <div class="col text-align-center">
+        <div class="gauge detail-gauge"></div>
+      </div>
+      <br>
+      <div class="block-title">걸음 포인트 : <span id="step-point"></span></div>
+      <div class="block block-strong" id="step-list" style="text-align: center"></div>
+      <div class="block-title">활동 심박 포인트 : <span id="hrm-point"></span></div>
+      <div class="block block-strong" id="hrm-list" style="text-align: center"></div>
+      <div class="block-title">나이 포인트 : <span id="age-point"></span></div>
+      <div class="block block-strong" id="age-list" style="text-align: center"></div>
+      <div class="block-title">섭취한 10대 음식 포인트 : <span id="food-point"></span></div>
+      <div class="block block-strong" id="food-list"></div>
       <div id="age"></div>
+
     </div>
   </div>
 </template>
 <script>
   import $$ from 'dom7';
   import Service from '../js/service';
+  import DetailService from '../js/detail';
 
+  const init = (app) => {
+    if (app) {
+      app.dialog.progress();
+      DetailService.bandCreate(0, app);
+    }
+
+    $$('#step-list').html('');
+    $$('#step-point').html('');
+    $$('#food-list').html('');
+    $$('#food-point').html('');
+    $$('#hrm-list').html('');
+    $$('#hrm-point').html('');
+    $$('#age-list').html('');
+    $$('#age-point').html('');
+    Service.getBandData(function (data) {
+      console.log(data);
+      data = JSON.parse(data);
+
+      $$('#step-point').html(`${data.step.point} point`);
+      $$('#step-list').append(`<i class="icon material-icons if-md"
+          style="font-size:50px;">directions_walk</i>${data.step.value} 걸음`);
+      $$('#hrm-point').html(`${data.hrm.point} point`);
+      $$('#hrm-list').append(`<i class="icon material-icons if-md"
+          style="font-size:50px;">rowing</i>${data.hrm.value}% 강도`);
+      $$('#age-point').html(`${data.age.point} point`);
+      $$('#age-list').append(`<i class="icon material-icons if-md"
+          style="font-size:50px;">cake</i> ${data.age.value}세`);
+      $$('#food-point').html(`${data.food.point} point`);
+      data.food.foods.map(food => {
+        $$('#food-list').append(`<div class="chip chip-outline">
+                <div class="chip-label">${food}</div>
+              </div>`);
+      });
+
+      DetailService.bandUpdate(data.total, 'of 12 Point');
+      if (app) app.dialog.close();
+    });
+  }
   export default {
     methods: {},
     on: {
       pageInit: function () {
-
+        const app = this.$app;
+        init();
         $$('#view-detail').on('tab:show', function () {
           console.log('reinit detail')
-          Service.getBandData(function (data) {
-            console.log(data);
-            data = JSON.parse(data);
-            $$('#step').html(`${data.step.value}걸음 - ${data.step.point}point`);
-            $$('#hrm').html(`${data.hrm.value}%강도 - ${data.hrm.point}point`);
-            $$('#food').html(`${data.food.foods}섭취 - ${data.food.point}point`);
-            $$('#age').html(`${data.age.value}세 - ${data.age.point}point`);
-          });
+          init(app);
         });
-        Service.getBandData(function (data) {
-          console.log(data);
-          data = JSON.parse(data);
-          $$('#step').html(`${data.step.value}걸음 - ${data.step.point}point`);
-          $$('#hrm').html(`${data.hrm.value}%강도 - ${data.hrm.point}point`);
-          $$('#food').html(`${data.food.foods}섭취 - ${data.food.point}point`);
-          $$('#age').html(`${data.age.value}세 - ${data.age.point}point`);
-        });
+        init();
       },
     },
   };

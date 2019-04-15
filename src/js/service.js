@@ -1,5 +1,5 @@
 import Framework7 from 'framework7';
-//const endpoint = 'http://localhost:4000';
+// const endpoint = 'http://localhost:4000';
 const endpoint = 'https://kbli-startup-api-server.mybluemix.net';
 const userid = 'kimoa';
 const date = new Date();
@@ -31,7 +31,6 @@ export default {
         cb(data);
       },
     };
-
     Framework7.request(params);
   },
   getWeather(cb) {

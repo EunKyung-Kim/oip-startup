@@ -1,3 +1,7 @@
+// data-type="semicircle" data-value="0.0" data-value-text="0 point"
+//           data-value-text-color="#e91e63" data-border-color="#e91e63" data-label-text="of 12 point total"
+//           data-label-text-color="#333"
+
 export default {
   data: function() {
     pointGauge: {
@@ -5,8 +9,8 @@ export default {
   },
   bandCreate(value, app) {
     this.pointGauge = app.gauge.create({
-      el: '.point-gauge',
-      type: 'circle',
+      el: '.detail-gauge',
+      type: 'semicircle',
       value: value,
       size: 250,
       borderColor: '#2196f3',
@@ -21,14 +25,14 @@ export default {
     if (value > 0) {
       this.pointGauge.update({
         value: value / 12,
-        valueText: value + 'point',
+        valueText: value + 'Point',
         labelText: text,
       });
     } else {
       this.pointGauge.update({
         value: 0,
-        valueText: 0 + 'point',
-        labelText: '아무 것도 안하시네요',
+        valueText: 0 + 'Point',
+        labelText: 'of 12 Point',
       });
     }
   },
