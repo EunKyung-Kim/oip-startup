@@ -35,13 +35,13 @@
   import $$ from 'dom7';
 
   $$(document).on('page:init', function (e, page) {
-    console.log(page);
+    // console.log(page);
   })
   export default {
     on: {
 
       pageInit: function () {
-        console.log('splash init');
+        // console.log('splash init');
         var self = this;
         self.$app.navbar.hide('.navbar');
         $$('.toolbar')[0].hidden = true;

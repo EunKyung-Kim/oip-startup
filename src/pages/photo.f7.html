@@ -2,7 +2,7 @@
     <div class="page" data-name="detail">
         <div class="navbar">
             <div class="navbar-inner sliding">
-                <div class="title">음식사진 찍기</div>
+                <div class="title">오늘 먹은 건강식</div>
             </div>
         </div>
         <div class="page-content">
@@ -86,7 +86,7 @@
     import $$ from 'dom7';
     import Service from '../js/service'
 
-    console.log('Photo init');
+    // console.log('Photo init');
 
     export default {
         data: function () {
@@ -105,7 +105,7 @@
                 $$('#submit-btn').hide();
                 var food = this.food;
                 $$('#_file').on('change', function () {
-                    console.log(this);
+                    // console.log(this);
 
                     $$('#point-list').html(
                         ' '
@@ -116,7 +116,7 @@
                         form.append("image_file", this.files[0]);
                         app.dialog.progress();
                         Service.getPhotoClassify(form, function (data) {
-                            console.log(data);
+                            // console.log(data);
                             data = JSON.parse(data);
                             food = data;
                             $$('#point-list').html(
@@ -141,7 +141,7 @@
                 })
 
                 $$('#submit-btn').on('click', function () {
-                    console.log(food);
+                    // console.log(food);
                     Service.addFoodPoint(food, function (data) {
                         $$('#tab-home')[0].click();
                     });

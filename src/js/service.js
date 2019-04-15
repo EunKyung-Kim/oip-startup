@@ -8,15 +8,21 @@ const dd = date.getDate();
 const yyyymmdd = [date.getFullYear(), (mm > 9 ? '' : '0') + mm, (dd > 9 ? '' : '0') + dd].join('');
 
 export default {
+  getUserData(cb) {
+    Framework7.request.get(`${endpoint}/api/v1/user/${userid}`, data => {
+      // console.log(data);
+      cb(data);
+    });
+  },
   getBandData(cb) {
     Framework7.request.get(`${endpoint}/api/v1/point/${yyyymmdd}_${userid}`, data => {
-      console.log(data);
+      // console.log(data);
       cb(data);
     });
   },
   getHistory(cb) {
     Framework7.request.get(`${endpoint}/api/v1/point/${userid}/${(mm > 9 ? '' : '0') + mm}`, data => {
-      console.log(data);
+      // console.log(data);
       cb(data);
     });
   },
@@ -27,7 +33,7 @@ export default {
       contentType: 'multipart/form-data',
       data: form,
       success: function(data) {
-        console.log(data);
+        // console.log(data);
         cb(data);
       },
     };
@@ -35,21 +41,21 @@ export default {
   },
   getWeather(cb) {
     Framework7.request.get(`${endpoint}/api/v1/weather/getweather`, data => {
-      console.log(data);
+      // console.log(data);
       cb(JSON.parse(data));
     });
   },
   getPoint(cb) {
     Framework7.request.get(`${endpoint}/api/v1/point/${yyyymmdd}_${userid}`, data => {
-      console.log(data);
+      // console.log(data);
       cb(JSON.parse(data));
     });
   },
   addFoodPoint(foods, cb) {
-    console.log(foods);
+    // console.log(foods);
 
     Framework7.request.postJSON(`${endpoint}/api/v1/point/food/${yyyymmdd}_${userid}`, foods, function(data) {
-      console.log(data);
+      // console.log(data);
       cb(data);
     });
   },

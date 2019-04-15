@@ -6,8 +6,11 @@
       </div>
     </div>
     <div class="page-content">
-      <h1>Customer Total Point</h1>
-      <h1>Customer Grade</h1>
+      <div class="block-title">고객 전체 포인트</span></div>
+      <div class="block block-strong" id="total-point" style="text-align: center; font-size: 30px; font-weight: bold">
+      </div>
+      <div class="block-title">고객 등급 : <span id="grade-text"></span></div>
+      <div class="block block-strong" id="grade-list" style="text-align: center"></div>
       <div class="block-title">이번달 포인트 내역 : <span id="month-total"></span></div>
       <div id="history"></div>
       <div class="list">
@@ -28,9 +31,11 @@
     }
 
     $$('#history-list').html('');
+    $$('#grade-text').html('');
+    $$('#grade-list').html('');
 
     Service.getHistory(function (data) {
-      console.log(data);
+      // console.log(data);
       data = JSON.parse(data);
       $$('#history').html(``);
 
@@ -52,6 +57,20 @@
       if (app) app.dialog.close();
     });
 
+    Service.getUserData(function (data) {
+      // console.log(data);
+      const result = JSON.parse(data);
+      $$('#total-point').html(`${result.total} Point`);
+      if (result.total > 15000)
+        $$('#grade-list').append(`<div style="color:#C9B037"><i class="icon material-icons if-md"
+          style="font-size:50px;" >star</i><span style="color:#000000">골드 등급</span></div>`);
+      else if (result.total > 5000)
+        $$('#grade-list').append(`<div style="color:#B4B4B4"><i class="icon material-icons if-md"
+          style="font-size:50px;" >star</i><span style="color:#000000">실버 등급</span></div>`);
+      else if (result.total > 0)
+        $$('#grade-list').append(`<div style="color:#6A3805"><i class="icon material-icons if-md"
+          style="font-size:50px;" >star</i><span style="color:#000000">브론즈 등급</span></div>`);
+    })
 
 
   }
@@ -61,7 +80,7 @@
       pageInit: function () {
         const app = this.$app;
         $$('#view-history').on('tab:show', function () {
-          console.log('reinit history')
+          // console.log('reinit history')
           init(app);
         });
         init();

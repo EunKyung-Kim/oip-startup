@@ -45,7 +45,7 @@
     $$('#age-list').html('');
     $$('#age-point').html('');
     Service.getBandData(function (data) {
-      console.log(data);
+      // console.log(data);
       data = JSON.parse(data);
 
       $$('#step-point').html(`${data.step.point} point`);
@@ -75,7 +75,7 @@
         const app = this.$app;
         init();
         $$('#view-detail').on('tab:show', function () {
-          console.log('reinit detail')
+          // console.log('reinit detail')
           init(app);
         });
         init();
