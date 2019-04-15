@@ -28,6 +28,10 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "static/icons/512x512.png"
   },
   {
+    "revision": "1c41296078623fe115c3b966852a9759",
+    "url": "static/icons/192x192.png"
+  },
+  {
     "revision": "ad809d0a19d880fc189e41e9726df58e",
     "url": "static/icons/256x256.png"
   },
@@ -36,11 +40,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "static/icons/152x152.png"
   },
   {
-    "revision": "1c41296078623fe115c3b966852a9759",
-    "url": "static/icons/192x192.png"
-  },
-  {
-    "revision": "5154ce8c60c40524de8c",
+    "revision": "bff68e9778b19d78d52b",
     "url": "js/app.js"
   },
   {
@@ -80,7 +80,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "fonts/Framework7Icons-Regular.eot"
   },
   {
-    "revision": "5154ce8c60c40524de8c",
+    "revision": "bff68e9778b19d78d52b",
     "url": "css/app.css"
   }
 ]);
