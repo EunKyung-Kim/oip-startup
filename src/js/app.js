@@ -23,11 +23,7 @@ var app = new Framework7({
     return {};
   },
   // App root methods
-  methods: {
-    helloWorld: function() {
-      app.dialog.alert('Hello World!');
-    },
-  },
+  methods: {},
   // App routes
   routes: routes,
 
@@ -35,16 +31,4 @@ var app = new Framework7({
   serviceWorker: {
     path: '/service-worker.js',
   },
-});
-
-// Login Screen Demo
-$$('#my-login-screen .login-button').on('click', function() {
-  var username = $$('#my-login-screen [name="username"]').val();
-  var password = $$('#my-login-screen [name="password"]').val();
-
-  // Close login screen
-  app.loginScreen.close('#my-login-screen');
-
-  // Alert username and password
-  app.dialog.alert('Username: ' + username + '<br>Password: ' + password);
 });

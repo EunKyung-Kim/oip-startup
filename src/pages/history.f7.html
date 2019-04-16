@@ -6,7 +6,7 @@
       </div>
     </div>
     <div class="page-content">
-      <div class="block-title">고객 전체 포인트</span></div>
+      <div class="block-title">누적 포인트</span></div>
       <div class="block block-strong" id="total-point" style="text-align: center; font-size: 30px; font-weight: bold">
       </div>
       <div class="block-title">고객 등급 : <span id="grade-text"></span></div>
@@ -44,7 +44,10 @@
         total += data[i].doc.total;
       }
       $$('#month-total').html(`${total} Point`);
+      console.log('reverse');
+      data = data.reverse();
       data.map((row) => {
+        console.log(row);
         $$('#history-list').append(` <li>
             <div class="item-content">
               <div class="item-inner">

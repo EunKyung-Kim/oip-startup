@@ -21,12 +21,12 @@
     </div>
 
     <!-- Scrollable page content-->
-    <div class="page-content">
-      <div id="image">
-        <img src="../static/images/popeye_logo.jpg" />
+    <div class="page-content" style="background-color: rgb(21,138,198)">
+      <div id="image" style="width:100%">
+        <img src="../static/images/popeye_logo.png" style="width:100%" />
       </div>
       <div id="title">
-        <h1 style="text-align: center">우리모두 뽀빠이</h1>
+        <h1 style="text-align: center; color:white">우리모두 뽀빠이</h1>
       </div>
     </div>
   </div>
@@ -42,6 +42,13 @@
 
       pageInit: function () {
         // console.log('splash init');
+        // let permissions;
+        // if (cordova) {
+        //   permissions = cordova.plugins.permissions;
+        //   permissions.checkPermission(permissions.INTERNET, successCallback, errorCallback);
+        //   permissions.requestPermission(permissions.INTERNET, successCallback, errorCallback);
+        // }
+
         var self = this;
         self.$app.navbar.hide('.navbar');
         $$('.toolbar')[0].hidden = true;
@@ -50,7 +57,7 @@
           self.$app.views.main.router.navigate({
             name: 'home'
           })
-        }, 100);
+        }, 3000);
       },
     },
   };
