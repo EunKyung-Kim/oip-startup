@@ -1,6 +1,6 @@
 import Framework7 from 'framework7';
-const endpoint = 'http://localhost:4000';
-// const endpoint = 'https://kbli-startup-api-server.mybluemix.net';
+// const endpoint = 'http://localhost:4000';
+const endpoint = 'https://kbli-startup-api-server.mybluemix.net';
 const userid = 'kimoa';
 const date = new Date();
 const mm = date.getMonth() + 1;
