@@ -51,27 +51,37 @@
       </div> -->
     </div>
     <div class="popup popup-about">
-      <div class="block">
-        <p><a class="link popup-close" href="#">Close popup</a></p>
-        <div class="card card-outline">
-          <div class="card-header" style="font-weight: bold;">오늘 날씨 요약</div>
-          <div class="card-content card-content-padding" id="weather-desc"></div>
-        </div>
-        <div class="card card-outline">
-          <div class="card-header" style="font-weight: bold;">최저 / 최고 온도</div>
-          <div class="card-content card-content-padding" style="text-align: center" id="weather-temp"></div>
-        </div>
-        <div class="card card-outline">
-          <div class="card-header" style="font-weight: bold;">지난 20년 평균 최저 / 최고온도</div>
-          <div class="card-content card-content-padding" style="text-align: center" id="weather-temp-summary"></div>
-        </div>
-        <div class="card card-outline">
-          <div class="card-header" style="font-weight: bold;">풍속</div>
-          <div class="card-content card-content-padding" style="text-align: center" id="weather-wind"></div>
-        </div>
-        <div class="card card-outline">
-          <div class="card-header" style="font-weight: bold;">자외선 지수</div>
-          <div class="card-content card-content-padding" style="text-align: center" id="weather-uv"></div>
+      <div class="view popup-view">
+        <div class="page">
+          <div class="page-content">
+            <div class="block">
+              <p><a class="link popup-close" href="#">Close popup</a></p>
+              <div class="card card-outline">
+                <div class="card-header" style="font-weight: bold;">오늘 날씨 요약</div>
+                <div class="card-content card-content-padding" id="weather-desc"></div>
+              </div>
+              <div class="card card-outline">
+                <div class="card-header" style="font-weight: bold;">최저 / 최고 온도</div>
+                <div class="card-content card-content-padding" style="text-align: center" id="weather-temp"></div>
+              </div>
+              <div class="card card-outline">
+                <div class="card-header" style="font-weight: bold;">지난 20년 평균 최저 / 최고온도</div>
+                <div
+                  class="card-content card-content-padding"
+                  style="text-align: center"
+                  id="weather-temp-summary"
+                ></div>
+              </div>
+              <div class="card card-outline">
+                <div class="card-header" style="font-weight: bold;">풍속</div>
+                <div class="card-content card-content-padding" style="text-align: center" id="weather-wind"></div>
+              </div>
+              <div class="card card-outline">
+                <div class="card-header" style="font-weight: bold;">자외선 지수</div>
+                <div class="card-content card-content-padding" style="text-align: center" id="weather-uv"></div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -135,7 +145,7 @@
             $$('#weather-desc').html(`${data[0].wth_narration}`);
             $$('#weather-temp').html(`최저 ${data[0].wth_min_temp}℃ / 최고 ${data[0].wth_max_temp}℃`);
             $$('#weather-temp-summary').html(`최저 ${data[0].wth_avg_lo}℃ / 최고 ${data[0].wth_avg_hi}℃`);
-            $$('#weather-wind').html(`${data[0].wth_wspd}m/s`);
+            $$('#weather-wind').html(`${data[0].wth_wspd} m/s`);
             $$('#weather-uv').html(`${data[0].wth_uv_index}`);
 
             if (data[0].wth_activity_index === 'bad') {

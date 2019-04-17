@@ -12,20 +12,16 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "static/images/popeye_logo2.jpg"
   },
   {
-    "revision": "b08f600e75284d6274ee0ee03f2ed1b3",
-    "url": "static/icons/128x128.png"
-  },
-  {
-    "revision": "e79bfd88537def476913f3ed52f4f4b3",
-    "url": "fonts/MaterialIcons-Regular.eot"
+    "revision": "09bac65cbc73f494482c480006f7c31a",
+    "url": "static/icons/152x152.png"
   },
   {
     "revision": "012cf6a10129e2275d79d6adac7f3b02",
     "url": "fonts/MaterialIcons-Regular.woff"
   },
   {
-    "revision": "9fa40ac188452505f216044f8c7a9b88",
-    "url": "static/icons/512x512.png"
+    "revision": "570eb83859dc23dd0eec423a49e147fe",
+    "url": "fonts/MaterialIcons-Regular.woff2"
   },
   {
     "revision": "c88219dd9796cca0bfa90e472a805ab9",
@@ -36,36 +32,40 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "static/icons/apple-touch-icon.png"
   },
   {
-    "revision": "a37b0c01c0baf1888ca812cc0508f6e2",
-    "url": "fonts/MaterialIcons-Regular.ttf"
-  },
-  {
-    "revision": "ad809d0a19d880fc189e41e9726df58e",
-    "url": "static/icons/256x256.png"
-  },
-  {
-    "revision": "5235496b75def01ce952",
-    "url": "js/app.js"
+    "revision": "9fa40ac188452505f216044f8c7a9b88",
+    "url": "static/icons/512x512.png"
   },
   {
     "revision": "5e68fa9f43f359fa7a5ba425bf1757da",
     "url": "static/.DS_Store"
   },
   {
-    "revision": "570eb83859dc23dd0eec423a49e147fe",
-    "url": "fonts/MaterialIcons-Regular.woff2"
+    "revision": "ad809d0a19d880fc189e41e9726df58e",
+    "url": "static/icons/256x256.png"
   },
   {
-    "revision": "09bac65cbc73f494482c480006f7c31a",
-    "url": "static/icons/152x152.png"
+    "revision": "6a537f61cf0ed7dce779",
+    "url": "js/app.js"
+  },
+  {
+    "revision": "b08f600e75284d6274ee0ee03f2ed1b3",
+    "url": "static/icons/128x128.png"
+  },
+  {
+    "revision": "1c41296078623fe115c3b966852a9759",
+    "url": "static/icons/192x192.png"
   },
   {
     "revision": "78bb1bad56b56f9176976fbb19f640d8",
     "url": "static/icons/144x144.png"
   },
   {
-    "revision": "1c41296078623fe115c3b966852a9759",
-    "url": "static/icons/192x192.png"
+    "revision": "a37b0c01c0baf1888ca812cc0508f6e2",
+    "url": "fonts/MaterialIcons-Regular.ttf"
+  },
+  {
+    "revision": "e79bfd88537def476913f3ed52f4f4b3",
+    "url": "fonts/MaterialIcons-Regular.eot"
   },
   {
     "revision": "0a51e7bba83f6ce6ef65b35a9ba4e0f2",
@@ -84,7 +84,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "fonts/Framework7Icons-Regular.eot"
   },
   {
-    "revision": "5235496b75def01ce952",
+    "revision": "6a537f61cf0ed7dce779",
     "url": "css/app.css"
   },
   {
