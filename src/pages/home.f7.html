@@ -22,7 +22,8 @@
         <div class="block-title">오늘의 운동지수</div>
         <a class="link popup-open" href="#" data-popup=".popup-about" style="width:100%">
           <div class="row" style="width:100%">
-            <div id="weather-dialog"
+            <div
+              id="weather-dialog"
               class=" link popup-openelevation-demo elevation-6 elevation-hover-24 elevation-pressed-12 elevation-transition"
               style="height: 100px; width: 100%;
                   margin: 10px 10px;
@@ -31,26 +32,23 @@
                   font-weight: bold;
                   text-align: center;
                   line-height: 100px;
-                  color: #ffffff">
-
-            </div>
+                  color: #ffffff"
+            ></div>
           </div>
         </a>
-
       </div>
       <div class="block-title">오늘의 포인트</div>
       <div class="block block-strong">
         <div class="row">
           <div class="gauge point-gauge" style="cursor:pointer"></div>
         </div>
-        <br>
+        <br />
       </div>
       <!-- <div class="block">
         <p class="row">
           <button class="col button button-fill color-blue" id="detail-btn">포인트 적립 상세보기</button>
         </p>
       </div> -->
-
     </div>
     <div class="popup popup-about">
       <div class="block">
@@ -65,15 +63,19 @@
         </div>
         <div class="card card-outline">
           <div class="card-header" style="font-weight: bold;">지난 20년 평균 최저 / 최고온도</div>
-          <div class="card-content card-content-padding" style="text-align: center" id="weather-temp-summary">
-          </div>
+          <div class="card-content card-content-padding" style="text-align: center" id="weather-temp-summary"></div>
         </div>
-
+        <div class="card card-outline">
+          <div class="card-header" style="font-weight: bold;">풍속</div>
+          <div class="card-content card-content-padding" style="text-align: center" id="weather-wind"></div>
+        </div>
+        <div class="card card-outline">
+          <div class="card-header" style="font-weight: bold;">자외선 지수</div>
+          <div class="card-content card-content-padding" style="text-align: center" id="weather-uv"></div>
+        </div>
       </div>
     </div>
   </div>
-
-
 </template>
 <script>
   import $$ from 'dom7';
@@ -81,44 +83,38 @@
   import HomeService from '../js/home';
   console.log('aaa');
 
-
   const init = (app, data, text) => {
     if (app) app.dialog.progress();
-    Service.getPoint((data) => {
-
+    Service.getPoint(data => {
       // console.log((data.total / 6).parseInt);
       HomeService.bandUpdate(data.total, text[parseInt(data.total / 2)]);
       if (app) {
         app.dialog.close();
       }
     });
-
-  }
+  };
   export default {
-    data: function () {
+    data: function() {
       return {
         text: [
-          "아무것도 안하고 계시네요..",
-          "많이 더하셔야해요",
-          "이제 시작입니다.",
-          "조금만 더 하시면되요",
-          "이제 거의다 왔어요",
-          "완벽합니다!"
+          '아무것도 안하고 계시네요..',
+          '많이 더하셔야해요',
+          '이제 시작입니다.',
+          '조금만 더 하시면되요',
+          '이제 거의다 왔어요',
+          '완벽합니다!',
         ],
-        band: ''
-      }
+        band: '',
+      };
     },
-    method: {
-
-    },
+    method: {},
     on: {
-      pageInit: function () {
-
+      pageInit: function() {
         // console.log('home init');
         const text = this.text;
         const app = this.$app;
-        const data = this.data
-        $$('#view-home').on('tab:show', function () {
+        const data = this.data;
+        $$('#view-home').on('tab:show', function() {
           // console.log('reinit home')
           init(app, data, text);
         });
@@ -128,7 +124,7 @@
 
         $$('.toolbar')[0].hidden = false;
 
-        Service.getWeather((data) => {
+        Service.getWeather(data => {
           // console.log(data);
           if (data.ERROR) {
             app.dialog.close();
@@ -138,39 +134,40 @@
             // console.log(data);
             $$('#weather-desc').html(`${data[0].wth_narration}`);
             $$('#weather-temp').html(`최저 ${data[0].wth_min_temp}℃ / 최고 ${data[0].wth_max_temp}℃`);
-            $$('#weather-temp-summary').html(
-              `최저 ${data[0].wth_avg_lo}℃ / 최고 ${data[0].wth_avg_hi}℃`);
+            $$('#weather-temp-summary').html(`최저 ${data[0].wth_avg_lo}℃ / 최고 ${data[0].wth_avg_hi}℃`);
+            $$('#weather-wind').html(`${data[0].wth_wspd}m/s`);
+            $$('#weather-uv').html(`${data[0].wth_uv_index}`);
 
             if (data[0].wth_activity_index === 'bad') {
               $$('#weather-dialog').css({
                 background: 'red',
-                color: '#ffffff'
+                color: '#ffffff',
               });
               $$('#weather-dialog').html(
-                `<i class="icon material-icons if-md" style="font-size:30px;">wb_cloudy</i> 나쁨`);
+                `<i class="icon material-icons if-md" style="font-size:30px;">wb_cloudy</i> 나쁨`
+              );
             } else {
               $$('#weather-dialog').css({
                 background: 'green',
-                color: '#ffffff'
+                color: '#ffffff',
               });
               $$('#weather-dialog').html(
-                `<i class="icon material-icons if-md" style="font-size:30px;">wb_sunny</i> 좋음`);
+                `<i class="icon material-icons if-md" style="font-size:30px;">wb_sunny</i> 좋음`
+              );
             }
           }
           app.dialog.close();
         });
 
-        this.$$('.gauge').on('click', function () {
+        this.$$('.gauge').on('click', function() {
           // console.log('btn-click');
           $$('#tab-detail')[0].click();
-        })
+        });
 
-        this.$$('#photo-btn').on('click', function () {
+        this.$$('#photo-btn').on('click', function() {
           $$('#tab-photo')[0].click();
-        })
+        });
       },
-
     },
-
-  }
+  };
 </script>
