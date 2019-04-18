@@ -98,9 +98,9 @@
     Service.getPoint(data => {
       // console.log((data.total / 6).parseInt);
       HomeService.bandUpdate(data.total, text[parseInt(data.total / 2)]);
-      if (app) {
-        app.dialog.close();
-      }
+      // if (app) {
+      //   app.dialog.close();
+      // }
     });
   };
   export default {
@@ -145,7 +145,7 @@
             $$('#weather-desc').html(`${data[0].wth_narration}`);
             $$('#weather-temp').html(`최저 ${data[0].wth_min_temp}℃ / 최고 ${data[0].wth_max_temp}℃`);
             $$('#weather-temp-summary').html(`최저 ${data[0].wth_avg_lo}℃ / 최고 ${data[0].wth_avg_hi}℃`);
-            $$('#weather-wind').html(`${data[0].wth_wspd} m/s`);
+            $$('#weather-wind').html(`${data[0].wth_wspd} km/s`);
             $$('#weather-uv').html(`${data[0].wth_uv_index}`);
 
             if (data[0].wth_activity_index === 'bad') {
