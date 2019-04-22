@@ -44,10 +44,10 @@
         total += data[i].doc.total;
       }
       $$('#month-total').html(`${total} Point`);
-      console.log('reverse');
+      // console.log('reverse');
       data = data.reverse();
       data.map((row) => {
-        console.log(row);
+        // console.log(row);
         $$('#history-list').append(` <li>
             <div class="item-content">
               <div class="item-inner">
