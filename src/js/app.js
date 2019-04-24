@@ -15,6 +15,7 @@ var app = new Framework7({
   root: '#app', // App root element
   name: 'Startup', // App name
   theme: 'md', // Android Style
+  //theme: 'ios', // ios Style
   panel: {
     swipe: 'left',
   },
