@@ -102,7 +102,7 @@
         $$('#weather-desc').html(`${data[0].wth_narration}`);
         $$('#weather-temp').html(`최저 ${data[0].wth_min_temp}℃ / 최고 ${data[0].wth_max_temp}℃`);
         $$('#weather-temp-summary').html(`최저 ${data[0].wth_avg_lo}℃ / 최고 ${data[0].wth_avg_hi}℃`);
-        $$('#weather-wind').html(`${data[0].wth_wspd} km/s`);
+        $$('#weather-wind').html(`${data[0].wth_wspd} km/h`);
         $$('#weather-uv').html(`${data[0].wth_uv_index}`);
 
         if (data[0].wth_activity_index === 'bad') {
